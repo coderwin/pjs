@@ -20,6 +20,7 @@ var Pjs = (function(){
 			}
 			bmap[++uid] = {callback: callback,
 				padding: queue.slice(0),
+				paddingVal: {},
 				context: (context||global)
 			};
 			for (var i = 0; i < queue.length; i++) {
@@ -27,16 +28,18 @@ var Pjs = (function(){
 				pmap[queue[i]].push(uid)
 			}
 		},
-		trigger: function(evt){
-			var res, i, index;
+		trigger: function(evt, val){
+			var res, i, index, paddingVal;
 			for (i = 0; i < pmap[evt].length; i++) {
 				res = bmap[pmap[evt][i]];
 				index = res.padding.indexOf(evt);/*es5 sham*/
 				res.padding.splice(index,1);
+				res.paddingVal[evt] = val;
 				if (!res.padding.length) {
+					paddingVal = res.paddingVal;
 					delete bmap[pmap[evt][i]]
 					setTimeout(function(){
-						res.callback.call(res.context)
+						res.callback.call(res.context, paddingVal)
 					},0)
 				}
 			}

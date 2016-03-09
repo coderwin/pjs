@@ -16,12 +16,12 @@ setTimeout(function(){
 pjs.when(["A", "B"], function(valMap){
 	/*把A和B的返回值传到回调函数里面*/
 	console.log(valMap)
-	console.log("A-B-Done!"+JSON.stringify(valMap))
+	console.log("A-B-Done!")
 })
 
 pjs.when(["A", "C"], function(valMap){
 	console.log(valMap)
-	console.log("A-C-Done!"+JSON.stringify(valMap))
+	console.log("A-C-Done!")
 })
 
-//setTimeout可以换成ajax等一步操作
+//setTimeout可以是ajax等异步操作
